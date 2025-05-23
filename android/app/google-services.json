@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "384498853459",
+    "project_id": "amsel-app",
+    "storage_bucket": "amsel-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384498853459:android:46492210e0b67b4cfdc8a6",
+        "android_client_info": {
+          "package_name": "com.appstone.buildupyourvoice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd-9EIFwuBDX-brYBlIctzWOIqZY-fcs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384498853459:android:c3b86e5c9233d9cbfdc8a6",
+        "android_client_info": {
+          "package_name": "com.appstone.buildupyourvoice.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd-9EIFwuBDX-brYBlIctzWOIqZY-fcs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

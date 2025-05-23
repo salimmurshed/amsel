@@ -1,0 +1,105 @@
+//import com.android.build.gradle.internal.tasks.FinalizeBundleTask
+plugins {
+    id "com.android.application"
+    // START: FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    // END: FlutterFire Configuration
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader("UTF-8") { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty("flutter.versionCode")
+if (flutterVersionCode == null) {
+    flutterVersionCode = "1"
+}
+
+def flutterVersionName = localProperties.getProperty("flutter.versionName")
+if (flutterVersionName == null) {
+    flutterVersionName = "4.1.2"
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+android {
+    namespace = "com.appstone.buildupyourvoice.dev"
+    compileSdk = 34
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId = "com.appstone.buildupyourvoice.dev"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+        minSdk = 23
+        targetSdk = 34
+        versionCode = flutterVersionCode.toInteger()
+        versionName = flutterVersionName
+    }
+
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
+//    applicationVariants.all { variant ->
+//        variant.outputs.all { output ->
+//            def architecture = output.getFilter(com.android.build.OutputFile.ABI)
+//            def newName
+//            newName = "${new Date().format('yyyyMMddhhmm')}_Amsel_${variant.getFlavorName().capitalize()}-${variant.buildType.name}_V${versionName}(${versionCode})-${architecture}.apk"
+//
+//            outputFileName = newName
+//        }
+//        tasks.named("sign${variant.name.capitalize()}Bundle", FinalizeBundleTask) {
+//            File file = finalBundleFile.asFile.get()
+//            File finalFile = new File(file.parentFile, "${new Date().format('yyyyMMddhhmm')}_Amsel_${variant.getFlavorName().capitalize()}-${variant.buildType.name}_V${versionName}(${versionCode}).aab")
+//            finalBundleFile.set(finalFile)
+//        }
+//    }
+
+    flavorDimensions "Amsel Flutter"
+    // change this according to you app
+    productFlavors {
+        dev {
+            dimension "Amsel Flutter"
+            applicationId "com.appstone.buildupyourvoice.dev"
+//            resValue "string", "app_name", 'Amsel DEV'
+            versionNameSuffix ".dev"
+        }
+        prod {
+            dimension "Amsel Flutter"
+            applicationId "com.appstone.buildupyourvoice"
+//            resValue "string", "app_name", "Amsel - Train your Voice"
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
